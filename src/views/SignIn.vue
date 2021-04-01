@@ -8,15 +8,16 @@
       </div>
       <v-form ref="form" v-model="valid" class="input d-flex flex-column">
         <v-text-field
-          :rules="nameRules"
-          label="Name"
+          :rules="emailRules"
+          label="Email"
           dark
           prepend-icon="person"
           required
-          v-model.trim="name"
+          v-model.trim="email"
         ></v-text-field>
         <v-text-field
-          :rules="emailRules"
+          :rules="passRules"
+          type="password"
           label="Password"
           dark
           prepend-icon="lock"
@@ -47,59 +48,63 @@
     <!-- </v-container> -->
   </v-app>
 </template>
-//
-<script>
-// export default {
-//   name: "HelloWorld",
-
-//   data: () => ({
-//     //
-//   }),
-// };
-//
-</script>
 
 <script>
+import { auth } from "../firebase";
 export default {
   data() {
     return {
-      name: "",
-      password: "",
       formIsValid: true,
       mode: "logn",
-
       valid: true,
-      name: "",
-      nameRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 20) || "Name must be less than 20 characters",
-      ],
+
       email: "",
       emailRules: [
+        (v) => !!v || "Email is required",
+        // (v) => v.include("@") || "Email must be less than 20 characters",
+      ],
+      password: "",
+      passRules: [
         (v) => !!v || "Password is required",
-        (v) => /.+@.+\..+/.test(v) || "Password must be valid",
+        // (v) => /.+@.+\..+/.test(v) || "Password must be valid",
       ],
       select: null,
     };
   },
 
   methods: {
-    submitForm() {
-      this.formIsValid = true;
-      if (
-        this.name === "" ||
-        this.name.includes("@") ||
-        this.password.length < 6
-      ) {
-        this.formIsValid = false;
-        return;
-      }
-    },
-    switchAuthMode() {
-      if (this.mode === "login") {
-        this.mode = "signup";
-      } else {
-        this.mode = "login";
+    //   submitForm() {
+    //     this.formIsValid = true;
+    //     if (
+    //       this.name === "" ||
+    //       this.name.includes("@") ||
+    //       this.password.length < 6
+    //     ) {
+    //       this.formIsValid = false;
+    //       return;
+    //     }
+
+    //     if (this.mode === "login") {
+    //       //
+    //     } else {
+    //       this.$store.dispatch("signup", {
+    //         email: this.email,
+    //         password: this.password,
+    //       });
+    //     }
+    //   },
+    // },
+
+    async submitForm() {
+      try {
+        const res = await auth.signInWithEmailAndPassword(
+          this.email,
+          this.password
+        );
+        this.$router.push("/home");
+        console.log(res);
+      } catch (error) {
+        console.log(error);
       }
     },
   },

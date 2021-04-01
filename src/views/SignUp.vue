@@ -3,16 +3,33 @@
     <div class="signup d-flex justify-center align-center flex-column">
       <v-form class="input" dark>
         <p class="signup-text ma-5">Sign Up</p>
-        <v-text-field label="Name" dark prepend-icon="person"></v-text-field>
-        <v-text-field label="Email" dark prepend-icon="email"></v-text-field>
+        <v-text-field
+          label="Name"
+          v-model="name"
+          dark
+          prepend-icon="person"
+        ></v-text-field>
+        <v-text-field
+          label="Email"
+          v-model="email"
+          dark
+          prepend-icon="email"
+        ></v-text-field>
         <v-text-field
           label="Password"
+          v-model="password"
           type="password"
           dark
           prepend-icon="lock"
         ></v-text-field>
-        <v-text-field label="Birthday" dark prepend-icon="today" class="mb-5">
-          <v-row justify="center">
+        <v-text-field
+          label="Birthday"
+          v-model="birthday"
+          dark
+          prepend-icon="today"
+          class="mb-5"
+        >
+          <!-- <v-row justify="center">
             <v-date-picker
               v-model="date"
               :allowed-dates="allowedDates"
@@ -20,10 +37,10 @@
               min="2016-06-15"
               max="2018-03-20"
             ></v-date-picker>
-          </v-row>
+          </v-row> -->
         </v-text-field>
       </v-form>
-      <v-btn class="my-5" type="submit">Join</v-btn>
+      <v-btn class="my-5" @click="onSignUp">Join</v-btn>
       <div class="d-flex flex-row align-center">
         <div class="grey--text my-5">Already have an account?</div>
         <v-btn
@@ -39,13 +56,42 @@
 </template>
 
 <script>
+import { auth } from "../firebase.js";
+
 export default {
-  data: () => ({
-    date: "2018-03-02",
-  }),
+  // data: () => ({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  //   birthday: "",
+  // }),
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      birthday: "",
+    };
+  },
 
   methods: {
-    allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0,
+    // allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0, unknnown code....
+    async onSignUp() {
+      console.log(this.error, this.password);
+      try {
+        const res = await auth.createUserWithEmailAndPassword(
+          this.email,
+          this.password
+        );
+        res.user.updateProfile({
+          displayName: this.name,
+        });
+        this.$router.push("/home");
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>

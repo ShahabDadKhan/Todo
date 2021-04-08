@@ -7,6 +7,7 @@
         <!-- <v-icon size="200" color="white">mdi-check</v-icon> -->
       </div>
       <v-form ref="form" v-model="valid" class="input d-flex flex-column">
+        <!-- <h1>{{ message }}</h1> -->
         <v-text-field
           :rules="emailRules"
           label="Email"
@@ -30,7 +31,7 @@
           >Forgot Password</v-btn
         >
       </div>
-      <v-btn class="my-5 white--text" color="red" @click="submitForm">
+      <v-btn class="my-5 white--text" color="red" dark @click="submitForm">
         Sign In
       </v-btn>
       <div class="d-flex flex-row align-center">
@@ -40,7 +41,6 @@
           elevation="0"
           class=" transparent white--text text-capitalize"
           to="signup"
-          @click="switchAuthMode"
           >Sign Up</v-btn
         >
       </div>
@@ -51,23 +51,26 @@
 
 <script>
 import { auth } from "../firebase";
+
 export default {
   data() {
     return {
       formIsValid: true,
       mode: "logn",
       valid: true,
+      // disable: disabled,
+
+      // message: "",
 
       email: "",
       emailRules: [
         (v) => !!v || "Email is required",
+        (v) => /.+@.+\..+/.test(v) || "Email must be valid",
+
         // (v) => v.include("@") || "Email must be less than 20 characters",
       ],
       password: "",
-      passRules: [
-        (v) => !!v || "Password is required",
-        // (v) => /.+@.+\..+/.test(v) || "Password must be valid",
-      ],
+      passRules: [(v) => !!v || "Password is required"],
       select: null,
     };
   },
@@ -95,16 +98,21 @@ export default {
     //   },
     // },
 
+    // Firebase authentication
+    // if(email=!'' || password=!''){}
     async submitForm() {
-      try {
-        const res = await auth.signInWithEmailAndPassword(
-          this.email,
-          this.password
-        );
-        this.$router.push("/home");
-        console.log(res);
-      } catch (error) {
-        console.log(error);
+      if (this.$refs.form.validate()) {
+        try {
+          const res = await auth.signInWithEmailAndPassword(
+            this.email,
+            this.password
+          );
+          this.$router.push("../home");
+          console.log(res);
+        } catch (error) {
+          // this.message = error.message;
+          console.log(error);
+        }
       }
     },
   },

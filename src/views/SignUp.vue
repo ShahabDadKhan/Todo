@@ -29,15 +29,6 @@
           prepend-icon="today"
           class="mb-5"
         >
-          <!-- <v-row justify="center">
-            <v-date-picker
-              v-model="date"
-              :allowed-dates="allowedDates"
-              class="mt-4"
-              min="2016-06-15"
-              max="2018-03-20"
-            ></v-date-picker>
-          </v-row> -->
         </v-text-field>
       </v-form>
       <v-btn class="my-5" @click="onSignUp">Join</v-btn>
@@ -59,12 +50,6 @@
 import { auth } from "../firebase.js";
 
 export default {
-  // data: () => ({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   birthday: "",
-  // }),
   data() {
     return {
       name: "",
@@ -75,9 +60,9 @@ export default {
   },
 
   methods: {
-    // allowedDates: (val) => parseInt(val.split("-")[2], 10) % 2 === 0, unknnown code....
+    // Firebase authentication
     async onSignUp() {
-      console.log(this.error, this.password);
+      // console.log(this.error, this.password);
       try {
         const res = await auth.createUserWithEmailAndPassword(
           this.email,
@@ -102,7 +87,6 @@ export default {
   min-height: 100%;
   background-image: url(../img/r2.jpg);
   background-size: cover;
-  // background-color: #6d4c41;
 }
 
 .signup-text {

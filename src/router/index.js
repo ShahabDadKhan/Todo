@@ -28,11 +28,11 @@ const routes = [
     name: "SignUp",
     component: SignUp,
   },
-  {
-    path: "/home",
-    name: "Home",
-    component: Home,
-  },
+  // {
+  //   path: "/home",
+  //   name: "Home",
+  //   component: Home,
+  // },
 ];
 
 const router = new VueRouter({

@@ -1,81 +1,78 @@
 <template>
-  <v-card class="overflow-hidden h1 " rounded="0">
-    <v-app-bar
-      flat
-      dark
-      absolute
-      src="/home/shahabdadkhan/Desktop/todo/src/img/h1.jpg"
-      shrink-on-scroll
-      prominent
-      fade-img-on-scroll
-      scroll-target="#scrolling-techniques-3"
-      class="home-bar"
-    >
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+  <v-app>
+    <!-- <div> -->
+    <the-navbar></the-navbar>
+    <v-main class=" mx-3 my-5">
+      <!-- <v-container> -->
 
-      <v-app-bar-title class="">Home</v-app-bar-title>
+      <!-- <h1 class="subtitle-1 mx-4  black--text">Dashboard</h1> -->
+      <v-container class="my-5">
+        <!-- <v-card elevation="2"> -->
+        <v-row wrap class="black--text" justify="center">
+          <v-col
+            v-for="group in groups"
+            :key="group.name"
+            md="2"
+            class="ma-5 d-flex justify-center flex-column align-center"
+          >
+            <v-img height="100px" width="100px" :lazy-src="`${group.src}`" />
+            <!-- <img :src="group.src" alt="image1" /> -->
+            <v-card-title> {{ group.name }} </v-card-title>
+            <v-card-subtitle>{{ group.items }} items</v-card-subtitle>
+            <v-card-actions>
+              <v-btn height="20" width="40">Enter</v-btn>
+            </v-card-actions>
 
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-app-bar>
-    <v-sheet
-      id="scrolling-techniques-3"
-      class="overflow-y-auto"
-      max-height="600"
-    >
-      <v-container style="height: 1000px;"></v-container>
-    </v-sheet>
-
-    <v-navigation-drawer v-model="drawer" absolute bottom temporary>
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-  </v-card>
+            <V-divider
+              :class="`mt-5 ml-1 ${group.name} `"
+              width="100"
+            ></V-divider>
+          </v-col>
+        </v-row>
+        <!-- </v-card> -->
+      </v-container>
+      <!-- </v-container> -->
+      <!-- </div> -->
+    </v-main>
+  </v-app>
 </template>
 
 <script>
+import TheNavbar from "../components/TheNavbar.vue";
 export default {
+  components: { TheNavbar },
   data() {
     return {
-      drawer: false,
+      groups: [
+        { name: "Shop", items: "25", src: "../img/shop.jpg" },
+        { name: "Work", items: "12", src: "../img/work.jpg" },
+        { name: "Exercise", items: "3", src: "../img/e.jpg" },
+        { name: "Vacation", items: "6", src: "../img/v.jpg" },
+        { name: "Meeting", items: "2", src: "../img/mt.jpg" },
+        { name: "Add", items: "0", src: "../img/add.jpg" },
+      ],
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.h1 {
-  height: 100%;
+.Shop {
+  border-bottom: 3px solid skyblue !important;
 }
 
-// .home-bar {
-// height: 200px;
-// background-image: url(/home/shahabdadkhan/Desktop/todo/src/img/h1.jpg);
-// background-size: cover;
-// }
+.Work {
+  border-bottom: 3px solid slategray !important;
+}
 
-// src="/home/shahabdadkhan/Desktop/todo/src/img/h1.jpg"
+.Exercise {
+  border-bottom: 3px solid greenyellow !important;
+}
+
+.Vacation {
+  border-bottom: 3px solid magenta !important;
+}
+.Meeting {
+  border-bottom: 3px solid blue !important;
+}
 </style>

@@ -1,19 +1,24 @@
 <template>
-  <v-app>
-    <v-main class="grey-light">
+  <v-app class="vue">
+    <!-- <the-navbar></the-navbar> -->
+    <div class="grey-light">
       <router-view></router-view>
-    </v-main>
+      <!-- <home></home> -->
+    </div>
   </v-app>
 </template>
 
 <script>
+// import TheNavbar from "./components/TheNavbar.vue";
+// import Home from "./views/Home";
 export default {
-  // name: "App",
-  // components: {
-  //   //
-  // },
-  // data: () => ({
-  //   //
-  // }),
+  name: "App",
+  components: {
+    // TheNavbar,
+    // Home,
+  },
+  data: () => ({
+    //
+  }),
 };
 </script>

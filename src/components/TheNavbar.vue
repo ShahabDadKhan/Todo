@@ -3,9 +3,8 @@
   <div class="main">
     <v-app-bar
       app
-      flat
-      absolute
-      dark
+      fixed
+      color="grey darken-2"
       class="d-flex align-center appbar pt-2"
       prominent
       height="70"
@@ -17,23 +16,20 @@
       ></v-app-bar-nav-icon> -->
 
       <v-btn icon class="white--text" @click="drawer = !drawer">
-        <v-icon flat
-          >{{ drawer === false ? "arrow_forward" : "arrow_back" }}
-        </v-icon>
+        <v-icon flat>{{ drawer === false ? "list" : "close" }} </v-icon>
       </v-btn>
 
       <v-app-bar-title class="white--text py-0 pb-3 align-self-center"
         >Home</v-app-bar-title
       >
-
       <v-spacer></v-spacer>
-
-      <v-btn icon>
+      <v-btn icon mr-3>
+        <!-- <v-text-field placeholder="Search" disabled></v-text-field> -->
         <v-icon color="white">mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app dark>
+    <v-navigation-drawer color="grey darken-2" v-model="drawer" app dark bottom>
       <v-layout>
         <v-list-item class=" d-flex justify-center mt-5">
           <v-list-item-avatar size="100">
@@ -44,7 +40,7 @@
       <v-list nav dense>
         <v-list-item-group
           v-model="group"
-          active-class="deep-purple--text text--accent-4"
+          active-class="teal darken-4--text text--accent-4"
         >
           <v-list-item class="list" v-for="link in links" :key="link.text">
             <v-list-item-icon>
@@ -110,5 +106,8 @@ export default {
 
 .list:hover {
   transform: scale(1.1);
+}
+.list:active {
+  transform: translateY(5px);
 }
 </style>

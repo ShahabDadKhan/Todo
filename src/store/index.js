@@ -8,8 +8,22 @@ export default new Vuex.Store({
   modules: {
     auth: authModule,
   },
-  state: {},
-  mutations: {},
-  actions: {},
+  state() {
+    return {
+      dialog: false,
+    };
+  },
+  mutations: {
+    openDialog(state) {
+      state.dialog = !state.dialog;
+      console.log(this.state.dialog);
+    },
+  },
+  getters: {
+    openDialogg(state) {
+      return state.dialog;
+    },
+  },
+  // actions: {},
   // modules: {},
 });

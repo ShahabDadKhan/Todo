@@ -31,7 +31,7 @@
           >Forgot Password</v-btn
         >
       </div>
-      <v-btn class="my-5 white--text" color="red" dark @click="submitForm">
+      <v-btn class="my-5 list white--text" color="red" dark @click="submitForm">
         Sign In
       </v-btn>
       <div class="d-flex flex-row align-center">

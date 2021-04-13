@@ -2,7 +2,7 @@
   <v-app>
     <div class="signup d-flex justify-center align-center flex-column">
       <v-form class="input" dark>
-        <p class="signup-text ma-5">Sign Up</p>
+        <p class="signup-text ma-5 ">Sign Up</p>
         <v-text-field
           label="Name"
           v-model="name"
@@ -31,7 +31,7 @@
         >
         </v-text-field>
       </v-form>
-      <v-btn class="my-5" @click="onSignUp">Join</v-btn>
+      <v-btn class="my-5 list" @click="onSignUp">Join</v-btn>
       <div class="d-flex flex-row align-center">
         <div class="grey--text my-5">Already have an account?</div>
         <v-btn
